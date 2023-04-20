@@ -24,11 +24,11 @@ services:
     volumes:
       - ./db:/var/lib/mysql
 
-  cloudsql-proxy:
-    image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
-    command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306 -credential_file=/secrets/cloudsql/key.json
-    volumes:
-      - ./credentials.json:/secrets/cloudsql/key.json
+  # cloudsql-proxy:
+  #   image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
+  #   command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306 -credential_file=/secrets/cloudsql/key.json
+  #   volumes:
+  #     - ./credentials.json:/secrets/cloudsql/key.json
 
 volumes:
   wordpress:
