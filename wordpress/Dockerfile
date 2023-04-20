@@ -6,7 +6,7 @@ ENV WORDPRESS_DB_USER=root
 ENV WORDPRESS_DB_PASSWORD=sqlpassword
 
 # Copiar os arquivos do WordPress para o contêiner
-COPY ./wordpress /var/www/html
+COPY . /var/www/html
 
 # Definir a porta padrão para o WordPress
 EXPOSE 80

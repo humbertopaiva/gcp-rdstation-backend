@@ -5,4 +5,4 @@ ENV MYSQL_DATABASE=wordpress
 ENV MYSQL_ROOT_PASSWORD=sqlpassword
 
 # Copiar os arquivos do MySQL para o contêiner
-COPY ./db /var/lib/mysql
+COPY . /var/lib/mysql
