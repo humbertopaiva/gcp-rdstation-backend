@@ -5,7 +5,7 @@ steps:
         "build",
         "-t",
         "uscentral1-docker.pkg.dev/headless-site/wordpress/wordpress",
-        "./wordpress",
+        ".",
       ]
     dir: "wordpress"
 
@@ -15,7 +15,7 @@ steps:
         "build",
         "-t",
         "uscentral1-docker.pkg.dev/headless-site/wordpress/mysql",
-        "./db",
+        ".",
       ]
     dir: "db"
 
