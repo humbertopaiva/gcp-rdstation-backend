@@ -22,15 +22,9 @@ spec:
               value: 127.0.0.1:3306
             # These secrets are required to start the pod.
             - name: WORDPRESS_DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: sql-credentials
-                  key: username
+              valueFrom: root
             - name: WORDPRESS_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: sql-credentials
-                  key: password
+              value: sqlpassword
           ports:
             - containerPort: 80
               name: wordpress
@@ -49,7 +43,7 @@ spec:
               # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
               # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
               # "-ip_address_types=PRIVATE",
-              "-credential_file=./credentials_key.json",
+              "-credential_file=./credentials.json",
             ]
           securityContext:
             runAsUser: 2 # non-root user
