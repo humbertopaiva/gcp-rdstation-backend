@@ -22,7 +22,7 @@ spec:
               value: 127.0.0.1:3306
             # These secrets are required to start the pod.
             - name: WORDPRESS_DB_USER
-              valueFrom: root
+              value: root
             - name: WORDPRESS_DB_PASSWORD
               value: sqlpassword
           ports:
