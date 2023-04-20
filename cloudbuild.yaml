@@ -39,24 +39,24 @@ steps:
     args:
       - "build"
       - "-t"
-      - "us-central1-docker.pkg.dev/<PROJECT_ID>/<REPOSITORY>/wordpress"
+      - "gcr.io/headless-site/wordpress:latest"
       - "."
     dir: "wordpress"
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "us-central1-docker.pkg.dev/<PROJECT_ID>/<REPOSITORY>/wordpress"
+      - "gcr.io/headless-site/wordpress:latest"
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "build"
       - "-t"
-      - "us-central1-docker.pkg.dev/<PROJECT_ID>/<REPOSITORY>/mysql"
+      - "gcr.io/headless-site/mysql:latest"
       - "."
     dir: "db"
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "us-central1-docker.pkg.dev/<PROJECT_ID>/<REPOSITORY>/mysql"
+      - "gcr.io/headless-site/mysql:latest"
   - name: "gcr.io/cloud-builders/kubectl"
     args:
       - "apply"
