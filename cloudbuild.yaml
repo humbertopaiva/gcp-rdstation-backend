@@ -63,5 +63,5 @@ steps:
       - "-f"
       - "kubernetes/"
     env:
-      - "CLOUDSDK_COMPUTE_ZONE=us-central1-a"
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
