@@ -1,0 +1,58 @@
+#service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  namespace: proxy-test
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+      name: http
+
+---
+#endpointslice.yaml
+
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: proxy-service
+  namespace: proxy-test
+  labels:
+    kubernetes.io/service-name: proxy-service # Must be present for EndpointSlice and equal to Service name for automatic mapping - with having it in place, you can change the name of EndpointSlice to something else. The official convention is using Service name as the prefix.
+addressType: IPv4
+ports:
+  - port: 80
+endpoints:
+  - addresses:
+      - "35.230.19.53" # IP address of your external service that you would like to proxy requests to
+
+---
+#ingress.yaml
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  name: proxy-service-ingress
+  namespace: proxy-test
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - proxy-service.dev.com
+      secretName: tls-dev-com
+  rules:
+    - host: proxy-service.dev.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: proxy-service # Here you specify the name of the Service traffic must be routed to
+                port:
+                  number: 80
+            path: /
+            pathType: ImplementationSpecific
