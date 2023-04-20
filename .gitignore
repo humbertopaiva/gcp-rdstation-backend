@@ -4,52 +4,22 @@
 # Ignore wp-config.php file inside db folder
 /db/wp-config.php
 
+# Ignore WordPress cache files
+/wordpress/wp-content/cache/
+/wordpress/wp-content/upgrade/
+/wordpress/wp-content/backup-db/
+/wordpress/wp-content/backups/
 
-# Wordpress - ignore core, configuration, examples, uploads and logs.
-# https://github.com/github/gitignore/blob/main/WordPress.gitignore
-
-# Core
-#
-# Note: if you want to stage/commit WP core files
-# you can delete this whole section/until Configuration.
-/wordpress/wp-admin/
-/wordpress/wp-content/index.php
-/wordpress/wp-content/languages
-/wordpress/wp-content/plugins/index.php
-/wordpress/wp-content/themes/index.php
-/wordpress/wp-includes/
-/wordpress/index.php
-/wordpress/license.txt
-/wordpress/readme.html
-/wordpress/wp-*.php
-/wordpress/xmlrpc.php
-
-# Configuration
+# Ignore WordPress config file
 /wordpress/wp-config.php
 
-# Example themes
-/wp-content/themes/twenty*/
+# Ignore WordPress debug log
+/wordpress/debug.log
 
-# Example plugin
-/wp-content/plugins/hello.php
-
-# Uploads
-/wp-content/uploads/
-
-# Log files
-*.log
-
-# htaccess
-/.htaccess
-
-# All plugins
-#
-# Note: If you wish to whitelist plugins,
-# uncomment the next line
-#/wp-content/plugins
-
-# All themes
-#
-# Note: If you wish to whitelist themes,
-# uncomment the next line
-#/wp-content/themes
+# Ignore WordPress temporary files
+/wordpress/*.log
+/wordpress/*.bak
+/wordpress/*.sql
+/wordpress/*.pot
+/wordpress/*.po
+/wordpress/*.mo
