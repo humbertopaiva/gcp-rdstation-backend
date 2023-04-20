@@ -30,7 +30,7 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: uscentral1-docker.pkg.dev/headless-site/wordpress/mysql
+        - image: gcr.io/headless-site/mysql:latest
           name: mysql
           args:
             - "--default-authentication-plugin=mysql_native_password"

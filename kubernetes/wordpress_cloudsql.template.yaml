@@ -15,7 +15,7 @@ spec:
         app: wordpress
     spec:
       containers:
-        - image: wordpress
+        - image: gcr.io/headless-site/wordpress:latest
           name: wordpress
           env:
             - name: WORDPRESS_DB_HOST
