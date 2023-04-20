@@ -30,7 +30,7 @@ spec:
         app: wordpress
     spec:
       containers:
-        - image: wordpress
+        - image: uscentral1-docker.pkg.dev/headless-site/wordpress/wordpress
           name: wordpress
           env:
             - name: WORDPRESS_DB_HOST
@@ -38,7 +38,7 @@ spec:
             - name: WORDPRESS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql
+                  name: sql-credentials
                   key: password
           ports:
             - containerPort: 80
