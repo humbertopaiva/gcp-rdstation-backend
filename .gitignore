@@ -1,0 +1,5 @@
+# Ignore uploads folder inside WordPress folder
+/wordpress/wp-content/uploads/
+
+# Ignore wp-config.php file inside db folder
+/db/wp-config.php
