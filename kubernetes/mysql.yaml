@@ -30,7 +30,7 @@ spec:
         app: mysql
     spec:
       containers:
-        - image: mysql:8
+        - image: mysql:5.7
           name: mysql
           args:
             - "--default-authentication-plugin=mysql_native_password"
@@ -38,7 +38,7 @@ spec:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mysql
+                  name: sql-credentials
                   key: password
           ports:
             - containerPort: 3306

@@ -1,0 +1,33 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "uscentral1-docker.pkg.dev/headless-site/wordpress/wordpress",
+        "./wordpress",
+      ]
+    dir: "wordpress"
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "uscentral1-docker.pkg.dev/headless-site/wordpress/mysql",
+        "./db",
+      ]
+    dir: "db"
+
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      ["push", "uscentral1-docker.pkg.dev/headless-site/wordpress/wordpress"]
+
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "uscentral1-docker.pkg.dev/headless-site/wordpress/mysql"]
+
+  - name: "gcr.io/cloud-builders/kubectl"
+    args: ["apply", "-f", "kubernetes/"]
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-a"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
