@@ -38,7 +38,7 @@ spec:
         # of your Cloud SQL instance. The format is
         # $PROJECT:$REGION:$INSTANCE
         - name: cloudsql-proxy
-          image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.2.0
+          image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
           command: [
               "/cloud_sql_proxy",
               "-instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306",
