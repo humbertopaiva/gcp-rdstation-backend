@@ -62,6 +62,9 @@ spec:
         - name: cloudsql-instance-credentials
           secret:
             secretName: google-credentials
+        - name: wordpress-persistent-storage
+          persistentVolumeClaim:
+            claimName: wordpress-volumeclaim
       # [END volumes]
 ---
 apiVersion: "v1"
@@ -79,3 +82,14 @@ spec:
     app: "wordpress"
   type: "LoadBalancer"
   loadBalancerIP: ""
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wordpress-volumeclaim
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
