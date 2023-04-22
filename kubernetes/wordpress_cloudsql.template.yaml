@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: web
-          image: gcr.io/headless-site/wordpress:latest
+          image: gcr.io/cloud-marketplace/google/wordpress:latest
           ports:
             - containerPort: 8080
           env:
