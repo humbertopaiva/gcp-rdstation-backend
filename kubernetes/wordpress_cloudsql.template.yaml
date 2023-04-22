@@ -25,6 +25,8 @@ spec:
               value: root
             - name: WORDPRESS_DB_PASSWORD
               value: sqlpassword
+            - name: WORDPRESS_DB_NAME
+              value: wordpress
           ports:
             - containerPort: 80
               name: wordpress
@@ -36,7 +38,7 @@ spec:
         # of your Cloud SQL instance. The format is
         # $PROJECT:$REGION:$INSTANCE
         - name: cloudsql-proxy
-          image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
+          image: gcr.io/cloudsql-docker/gce-proxy:2.2.0
           command: [
               "/cloud_sql_proxy",
               "-instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306",

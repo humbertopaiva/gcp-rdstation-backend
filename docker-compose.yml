@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   wordpress:
-    image: wordpress:latest
+    image: wordpress:6.2
     ports:
       - "8080:80"
     environment:
@@ -17,18 +17,18 @@ services:
       - cloudsql-proxy
 
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_DATABASE: "wordpress"
       MYSQL_ROOT_PASSWORD: "sqlpassword"
     volumes:
       - ./db:/var/lib/mysql
 
-  # cloudsql-proxy:
-  #   image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
-  #   command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306 -credential_file=/secrets/cloudsql/key.json
-  #   volumes:
-  #     - ./credentials.json:/secrets/cloudsql/key.json
+  cloudsql-proxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.2.0
+    command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306 -credential_file=/secrets/cloudsql/credentials.json
+    volumes:
+      - ./secrets/cloudsql-proxy/:/secrets/cloudsql/
 
 volumes:
   wordpress:

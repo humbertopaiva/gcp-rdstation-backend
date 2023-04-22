@@ -1,4 +1,4 @@
-FROM mysql:5.7
+FROM mysql:8.0
 
 # Configurar a variável de ambiente para o MySQL
 ENV MYSQL_DATABASE=wordpress
