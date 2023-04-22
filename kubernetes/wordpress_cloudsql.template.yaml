@@ -19,7 +19,7 @@ spec:
           name: wordpress
           env:
             - name: WORDPRESS_DB_HOST
-              value: 127.0.0.1:3306
+              value: 34.132.4.96
             # These secrets are required to start the pod.
             - name: WORDPRESS_DB_USER
               value: root
@@ -37,27 +37,28 @@ spec:
         # project, the region of your Cloud SQL instance and the name
         # of your Cloud SQL instance. The format is
         # $PROJECT:$REGION:$INSTANCE
-        - name: cloudsql-proxy
-          image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
-          command: [
-              "/cloud_sql_proxy",
-              "-instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306",
-              # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
-              # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
-              # "-ip_address_types=PRIVATE",
-              "-credential_file=/secrets/cloudsql/credentials_key.json",
-            ]
-          securityContext:
-            runAsUser: 2 # non-root user
-            allowPrivilegeEscalation: false
-          volumeMounts:
-            - name: sql-credentials
-              mountPath: /secrets/cloudsql
-              readOnly: true
+
+        # - name: cloudsql-proxy
+        #   image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
+        #   command: [
+        #       "/cloud_sql_proxy",
+        #       "-instances=headless-site:us-central1:sql-rdstation-teste=tcp:3306",
+        #       # If running on a VPC, the Cloud SQL proxy can connect via Private IP. See:
+        #       # https://cloud.google.com/sql/docs/mysql/private-ip for more info.
+        #       # "-ip_address_types=PRIVATE",
+        #       "-credential_file=/secrets/cloudsql/credentials_key.json",
+        #     ]
+        #   securityContext:
+        #     runAsUser: 2 # non-root user
+        #     allowPrivilegeEscalation: false
+        #   volumeMounts:
+        #     - name: sql-credentials
+        #       mountPath: /secrets/cloudsql
+        #       readOnly: true
       volumes:
         - name: wordpress-persistent-storage
           persistentVolumeClaim:
             claimName: wordpress-volumeclaim
-        - name: sql-credentials
-          secret:
-            secretName: sql-credentials
+        # - name: sql-credentials
+        #   secret:
+        #     secretName: sql-credentials
