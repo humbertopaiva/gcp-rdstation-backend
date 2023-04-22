@@ -24,7 +24,7 @@ spec:
             # These secrets are required to start the pod.
             # [START cloudsql_secrets]
             - name: WORDPRESS_DB_USER
-              value: sqluser
+              value: root
             - name: WORDPRESS_DB_PASSWORD
               value: sqlpassword
             - name: WORDPRESS_DB_NAME
