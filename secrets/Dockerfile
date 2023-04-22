@@ -2,7 +2,7 @@
 FROM gcr.io/cloudsql-docker/gce-proxy:1.33.2
 
 # Set environment variables
-ENV CLOUD_SQL_INSTANCE_NAME=headless-site:us-central1:sql-rdstation-teste
+ENV CLOUD_SQL_INSTANCE_NAME=headless-site:us-central1:sql-instance
 ENV GOOGLE_APPLICATION_CREDENTIALS=/secrets/cloudsql/key.json
 
 # Copy the service account credentials to the container

@@ -1,4 +1,4 @@
-FROM wordpress:6.2
+FROM wordpress:6.1
 
 # Configurar variáveis de ambiente para o WordPress
 ENV WORDPRESS_DB_HOST=127.0.0.1:3306
