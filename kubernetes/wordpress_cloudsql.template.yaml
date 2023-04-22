@@ -24,15 +24,11 @@ spec:
             # These secrets are required to start the pod.
             # [START cloudsql_secrets]
             - name: WORDPRESS_DB_USER
-              valueFrom:
-                secretKeyRef:
-                  name: sql-credentials
-                  key: username
+              value: sqluser
             - name: WORDPRESS_DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: sql-credentials
-                  key: password
+              value: sqlpassword
+            - name: WORDPRESS_DB_NAME
+              value: wordpress
             # [END cloudsql_secrets]
         # Change <INSTANCE_CONNECTION_NAME> here to include your Google Cloud
         # project, the region of your Cloud SQL instance and the name
