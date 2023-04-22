@@ -39,13 +39,13 @@ steps:
     args:
       - "build"
       - "-t"
-      - "gcr.io/headless-site/wordpress:latest"
+      - "gcr.io/headless-site/wordpress:6.2"
       - "."
     dir: "wordpress"
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "gcr.io/headless-site/wordpress:latest"
+      - "gcr.io/headless-site/wordpress:6.2"
   # - name: "gcr.io/cloud-builders/docker"
   #   args:
   #     - "build"
