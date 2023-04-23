@@ -14,7 +14,7 @@ services:
       - ./wordpress:/var/www/html
     depends_on:
       - db
-      - cloudsql-proxy
+      # - cloudsql-proxy
 
   db:
     image: mysql:8.0
@@ -24,11 +24,11 @@ services:
     volumes:
       - ./db:/var/lib/mysql
 
-  cloudsql-proxy:
-    image: gcr.io/cloudsql-docker/gce-proxy:1.33.2
-    command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-instance=tcp:3306 -credential_file=/secrets/cloudsql/credentials.json
-    volumes:
-      - ./secrets/cloudsql-proxy/:/secrets/cloudsql/
+  # cloudsql-proxy:
+  #   image: gcr.io/cloudsql-docker/gce-proxy:latest
+  #   command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-instance=tcp:3306 -credential_file=/secrets/cloudsql/credentials.json
+  #   volumes:
+  #     - ./secrets/cloudsql-proxy/:/secrets/cloudsql/
 
 volumes:
   wordpress:
