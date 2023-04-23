@@ -12,9 +12,10 @@ services:
       WORDPRESS_DB_NAME: "wordpress"
     volumes:
       - ./wordpress:/var/www/html
+    networks:
+      - rdstation-network
     depends_on:
       - db
-      # - cloudsql-proxy
 
   db:
     image: mysql:8.0
@@ -23,13 +24,13 @@ services:
       MYSQL_ROOT_PASSWORD: "sqlpassword"
     volumes:
       - ./db:/var/lib/mysql
-
-  # cloudsql-proxy:
-  #   image: gcr.io/cloudsql-docker/gce-proxy:latest
-  #   command: /cloud_sql_proxy -instances=headless-site:us-central1:sql-instance=tcp:3306 -credential_file=/secrets/cloudsql/credentials.json
-  #   volumes:
-  #     - ./secrets/cloudsql-proxy/:/secrets/cloudsql/
+    networks:
+      - rdstation-network
 
 volumes:
   wordpress:
   db:
+
+networks:
+  rdstation-network:
+    external: true

@@ -1,39 +1,3 @@
-# steps:
-# - name: "gcr.io/cloud-builders/docker"
-#   args:
-#     - "build"
-#     - "-t"
-#     - "uscentral1-docker.pkg.dev/headless-site/wordpress/wordpress"
-#     - "."
-#   dir: "wordpress"
-
-# - name: "gcr.io/cloud-builders/docker"
-#   args:
-#     - "build"
-#     - "-t"
-#     - "uscentral1-docker.pkg.dev/headless-site/wordpress/mysql"
-#     - "."
-#   dir: "db"
-
-# - name: "gcr.io/cloud-builders/docker"
-#   args:
-#     - "push"
-#     - "uscentral1-docker.pkg.dev/headless-site/wordpress/wordpress"
-
-# - name: "gcr.io/cloud-builders/docker"
-#   args:
-#     - "push"
-#     - "uscentral1-docker.pkg.dev/headless-site/wordpress/mysql"
-
-# - name: "gcr.io/cloud-builders/kubectl"
-#   args:
-#     - "apply"
-#     - "-f"
-#     - "kubernetes/"
-#   env:
-#     - "CLOUDSDK_COMPUTE_ZONE=us-central1-a"
-#     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
-
 steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -41,22 +5,14 @@ steps:
       - "-t"
       - "gcr.io/headless-site/wordpress:latest"
       - "."
-    dir: "wordpress"
+    dir: "/"
+    dockerfile: "Dockerfile.wordpress"
+
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
       - "gcr.io/headless-site/wordpress:latest"
-  # - name: "gcr.io/cloud-builders/docker"
-  #   args:
-  #     - "build"
-  #     - "-t"
-  #     - "gcr.io/headless-site/mysql:latest"
-  #     - "."
-  #   dir: "db"
-  # - name: "gcr.io/cloud-builders/docker"
-  #   args:
-  #     - "push"
-  #     - "gcr.io/headless-site/mysql:latest"
+
   - name: "gcr.io/cloud-builders/kubectl"
     args:
       - "apply"
