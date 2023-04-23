@@ -5,7 +5,7 @@ steps:
       - "-t"
       - "gcr.io/headless-site/wordpress:latest"
       - "."
-    dir: "."
+    dir: "wordpress"
 
   - name: "gcr.io/cloud-builders/docker"
     args:
