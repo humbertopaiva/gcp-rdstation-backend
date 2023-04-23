@@ -1,11 +1,14 @@
 steps:
+  - name: "gcr.io/cloud-builders/git"
+    args:
+      ["clone", "https://github.com/humbertopaiva/gcp-rdstation-backend.git"]
+
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "build"
       - "-t"
       - "gcr.io/headless-site/wordpress:latest"
       - "."
-    dir: "wordpress"
 
   - name: "gcr.io/cloud-builders/docker"
     args:
