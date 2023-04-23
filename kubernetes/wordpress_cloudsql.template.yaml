@@ -14,8 +14,8 @@ spec:
         app: wordpress
     spec:
       containers:
-        - name: web
-          image: gcr.io/cloud-marketplace/google/wordpress:latest
+        - name: wordpress
+          image: gcr.io/headless-site/wordpress:latest
           ports:
             - containerPort: 80
           env:
