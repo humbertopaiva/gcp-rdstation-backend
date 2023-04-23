@@ -20,3 +20,13 @@ steps:
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "set"
+      - "image"
+      - "deployment/wordpress"
+      - "wordpress=gcr.io/headless-site/wordpress:latest"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
