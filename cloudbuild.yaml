@@ -6,7 +6,7 @@ steps:
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "build"
-       - "--no-cache"
+      - "--no-cache"
       - "-t"
       - "gcr.io/headless-site/wordpress:latest"
       - "."
@@ -34,3 +34,7 @@ steps:
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+
+images:
+  # Imagem Docker gerada no passo anterior
+  - "gcr.io/headless-site/wordpress:latest"
