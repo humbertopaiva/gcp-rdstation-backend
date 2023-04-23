@@ -6,7 +6,6 @@ steps:
       - "gcr.io/headless-site/wordpress:latest"
       - "."
     dir: "/"
-    dockerfile: "Dockerfile.wordpress"
 
   - name: "gcr.io/cloud-builders/docker"
     args:
