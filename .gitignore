@@ -28,8 +28,5 @@
 
 ./secrets/*
 
-./db
+/db/*
 
-db
-
-secrets
