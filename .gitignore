@@ -29,3 +29,7 @@
 ./secrets/*
 
 ./db
+
+db
+
+secrets
