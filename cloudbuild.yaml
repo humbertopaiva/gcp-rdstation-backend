@@ -18,14 +18,14 @@ steps:
       - "gcr.io/headless-site/wordpress:latest"
 
   # Set up kubectl for deployment
-  - name: "gcr.io/cloud-builders/kubectl"
-    args:
-      - "config"
-      - "use-context"
-      - "gke_headless-site_us-central1-c_rdstation-teste"
-    env:
-      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+  # - name: "gcr.io/cloud-builders/kubectl"
+  #   args:
+  #     - "config"
+  #     - "use-context"
+  #     - "gke_headless-site_us-central1-c_rdstation-teste"
+  #   env:
+  #     - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+  #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
   # Apply Kubernetes manifests in the correct order
   - name: "gcr.io/cloud-builders/kubectl"
@@ -33,24 +33,36 @@ steps:
       - "apply"
       - "-f"
       - "kubernetes/wordpress-pvc.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
   - name: "gcr.io/cloud-builders/kubectl"
     args:
       - "apply"
       - "-f"
       - "kubernetes/wordpress-content-sync.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
   - name: "gcr.io/cloud-builders/kubectl"
     args:
       - "apply"
       - "-f"
       - "kubernetes/wordpress-deployment.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
   - name: "gcr.io/cloud-builders/kubectl"
     args:
       - "apply"
       - "-f"
       - "kubernetes/wordpress-service.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
   # Check rollout status
   # - name: "gcr.io/cloud-builders/kubectl"
