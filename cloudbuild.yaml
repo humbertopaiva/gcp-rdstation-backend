@@ -20,7 +20,8 @@ steps:
   # PVC
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "apply"
+      - "replace"
+      - "--force"
       - "-f"
       - "kubernetes/wordpress-pvc.yaml"
     env:
@@ -30,8 +31,8 @@ steps:
   # JOB
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "apply"
-      - "-f"
+      - "replace"
+      - "--force"
       - "kubernetes/wordpress-content-sync.yaml"
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
@@ -40,8 +41,8 @@ steps:
   # DEPLOYMENT
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "apply"
-      - "-f"
+      - "replace"
+      - "--force"
       - "kubernetes/wordpress-deployment.yaml"
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
@@ -50,8 +51,8 @@ steps:
   # SERVICE
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "apply"
-      - "-f"
+      - "replace"
+      - "--force"
       - "kubernetes/wordpress-service.yaml"
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
