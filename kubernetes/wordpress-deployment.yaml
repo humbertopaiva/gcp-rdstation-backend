@@ -34,27 +34,33 @@ spec:
                   name: sql-credentials
                   key: password
           volumeMounts:
-            - name: wordpress-storage
-              mountPath: /var/www/html
-        - name: cloudsql-proxy
-          image: gcr.io/cloudsql-docker/gce-proxy:latest
-          command:
-            [
-              "/cloud_sql_proxy",
-              "-instances=headless-site:us-central1:sql-instance=tcp:3306",
-              "-credential_file=/secrets/cloudsql/key.json",
-            ]
-          securityContext:
-            runAsUser: 2 # non-root user
-            allowPrivilegeEscalation: false
-          volumeMounts:
-            - name: cloudsql-instance-credentials
-              mountPath: /secrets/cloudsql
-              readOnly: true
+            - name: wordpress-themes
+              mountPath: /var/www/html/wp-content/themes
+            - name: wordpress-uploads
+              mountPath: /var/www/html/wp-content/uploads
+
+            - name: cloudsql-proxy
+              image: gcr.io/cloudsql-docker/gce-proxy:latest
+              command:
+                [
+                  "/cloud_sql_proxy",
+                  "-instances=headless-site:us-central1:sql-instance=tcp:3306",
+                  "-credential_file=/secrets/cloudsql/key.json",
+                ]
+              securityContext:
+                runAsUser: 2 # non-root user
+                allowPrivilegeEscalation: false
+              volumeMounts:
+                - name: cloudsql-instance-credentials
+                  mountPath: /secrets/cloudsql
+                  readOnly: true
       volumes:
-        - name: wordpress-storage
+        - name: wordpress-themes
           persistentVolumeClaim:
-            claimName: wordpress-pvc
+            claimName: wordpress-themes-pvc
+        - name: wordpress-uploads
+          persistentVolumeClaim:
+            claimName: wordpress-uploads-pvc
         - name: cloudsql-instance-credentials
           secret:
             secretName: google-credentials
