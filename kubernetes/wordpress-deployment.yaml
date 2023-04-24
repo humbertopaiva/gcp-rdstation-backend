@@ -14,6 +14,16 @@ spec:
       labels:
         app: wordpress
     spec:
+      initContainers:
+        - name: init-wordpress
+          image: gcr.io/headless-site/wordpress:latest
+          command:
+            - sh
+            - -c
+            - "cp -r /var/www/html/* /wordpress-storage"
+          volumeMounts:
+            - name: wordpress-storage
+              mountPath: /wordpress-storage
       containers:
         - name: wordpress
           image: gcr.io/headless-site/wordpress:latest
