@@ -8,7 +8,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: wordpress-content-sync
-          image: gcr.io/headless-site/wordpress:latest
+          image: gcr.io/headless-site/wordpress:v1.0.1
           command:
             - sh
             - -c
