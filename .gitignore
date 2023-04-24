@@ -25,3 +25,7 @@
 /wordpress/*.mo
 
 ./credentials.json
+
+./secrets/*
+
+./db
