@@ -1,105 +1,82 @@
 steps:
-  # Construir a imagem Docker
+  - name: "gcr.io/cloud-builders/git"
+    args:
+      - "clone"
+      - "https://github.com/humbertopaiva/gcp-rdstation-backend.git"
+
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/headless-site/wordpress:latest", "."]
-  # Enviar a imagem para o Container Registry
+    args:
+      - "build"
+      - "--no-cache"
+      - "-t"
+      - "gcr.io/headless-site/wordpress:latest"
+      - "."
+
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/headless-site/wordpress:latest"]
-  # Aplicar os manifestos Kubernetes na pasta "kubernetes"
-  - name: "gcr.io/cloud-builders/kubectl"
-    args: ["apply", "-f", "kubernetes/"]
-    env:
-      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
-  # Atualizar a implantação no GKE
+    args:
+      - "push"
+      - "gcr.io/headless-site/wordpress:latest"
+
+  # PVC
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "set"
-      - "image"
-      - "deployment/wordpress"
-      - "wordpress=gcr.io/headless-site/wordpress:latest"
+      - "apply"
+      - "-f"
+      - "kubernetes/wordpress-pvc.yaml"
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
-# steps:
-#   - name: "gcr.io/cloud-builders/git"
-#     args:
-#       - "clone"
-#       - "https://github.com/humbertopaiva/gcp-rdstation-backend.git"
 
-#   - name: "gcr.io/cloud-builders/docker"
-#     args:
-#       - "build"
-#       - "--no-cache"
-#       - "-t"
-#       - "gcr.io/headless-site/wordpress:latest"
-#       - "."
+  # Delete existing JOB (if any)
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "delete"
+      - "job"
+      - "wordpress-content-sync"
+      - "--ignore-not-found" # Ignore error if the Job doesn't exist
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
-#   - name: "gcr.io/cloud-builders/docker"
-#     args:
-#       - "push"
-#       - "gcr.io/headless-site/wordpress:latest"
+  # JOB
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/wordpress-content-sync.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
-#   # PVC
-#   - name: "gcr.io/cloud-builders/kubectl"
-#     args:
-#       - "apply"
-#       - "-f"
-#       - "kubernetes/wordpress-pvc.yaml"
-#     env:
-#       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-#       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+  # DEPLOYMENT
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/wordpress-deployment.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
-#   # Delete existing JOB (if any)
-#   - name: "gcr.io/cloud-builders/kubectl"
-#     args:
-#       - "delete"
-#       - "job"
-#       - "wordpress-content-sync"
-#       - "--ignore-not-found" # Ignore error if the Job doesn't exist
-#     env:
-#       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-#       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+  # SERVICE
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/wordpress-service.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
-#   # JOB
-#   - name: "gcr.io/cloud-builders/kubectl"
-#     args:
-#       - "apply"
-#       - "-f"
-#       - "kubernetes/wordpress-content-sync.yaml"
-#     env:
-#       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-#       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+  # # Check rollout status
+  # - name: "gcr.io/cloud-builders/kubectl"
+  #   args:
+  #     - "rollout"
+  #     - "status"
+  #     - "deployment/wordpress"
+  #   env:
+  #     - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+  #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
-#   # DEPLOYMENT
-#   - name: "gcr.io/cloud-builders/kubectl"
-#     args:
-#       - "apply"
-#       - "-f"
-#       - "kubernetes/wordpress-deployment.yaml"
-#     env:
-#       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-#       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
-
-#   # SERVICE
-#   - name: "gcr.io/cloud-builders/kubectl"
-#     args:
-#       - "apply"
-#       - "-f"
-#       - "kubernetes/wordpress-service.yaml"
-#     env:
-#       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-#       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
-
-#   # # Check rollout status
-#   # - name: "gcr.io/cloud-builders/kubectl"
-#   #   args:
-#   #     - "rollout"
-#   #     - "status"
-#   #     - "deployment/wordpress"
-#   #   env:
-#   #     - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-#   #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
-
-# images:
-#   - "gcr.io/headless-site/wordpress:latest"
+images:
+  - "gcr.io/headless-site/wordpress:latest"
