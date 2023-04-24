@@ -17,6 +17,7 @@ spec:
       containers:
         - name: wordpress
           image: gcr.io/headless-site/wordpress:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
           env:
