@@ -1,27 +1,21 @@
 steps:
-  - name: "gcr.io/cloud-builders/bash"
-    args:
-      - "-c"
-      - "rm -rf gcp-rdstation-backend || true && mkdir gcp-rdstation-backend"
-
   - name: "gcr.io/cloud-builders/git"
     args:
       - "clone"
       - "https://github.com/humbertopaiva/gcp-rdstation-backend.git"
-      - "gcp-rdstation-backend"
 
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "build"
       - "--no-cache"
       - "-t"
-      - "gcr.io/headless-site/wordpress:latest"
+      - "gcr.io/headless-site/wordpress"
       - "."
 
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "gcr.io/headless-site/wordpress:latest"
+      - "gcr.io/headless-site/wordpress"
 
   # PVC
   - name: "gcr.io/cloud-builders/kubectl"
@@ -74,4 +68,4 @@ steps:
   #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
 images:
-  - "gcr.io/headless-site/wordpress:latest"
+  - "gcr.io/headless-site/wordpress:v1.0.1"
