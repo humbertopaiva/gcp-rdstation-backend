@@ -9,13 +9,13 @@ steps:
       - "build"
       - "--no-cache"
       - "-t"
-      - "gcr.io/headless-site/wordpress"
+      - "gcr.io/headless-site/wordpress:v1.0.1"
       - "."
 
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "gcr.io/headless-site/wordpress"
+      - "gcr.io/headless-site/wordpress:v1.0.1"
 
   # PVC
   - name: "gcr.io/cloud-builders/kubectl"
