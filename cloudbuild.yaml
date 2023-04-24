@@ -9,13 +9,13 @@ steps:
       - "build"
       - "--no-cache"
       - "-t"
-      - "gcr.io/headless-site/wordpress:v1.0.1"
+      - "gcr.io/headless-site/wordpress:latest"
       - "."
 
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "gcr.io/headless-site/wordpress:v1.0.1"
+      - "gcr.io/headless-site/wordpress:latest"
 
   # PVC
   - name: "gcr.io/cloud-builders/kubectl"
@@ -23,6 +23,17 @@ steps:
       - "apply"
       - "-f"
       - "kubernetes/wordpress-pvc.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+
+  # Delete existing JOB (if any)
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "delete"
+      - "job"
+      - "wordpress-content-sync"
+      - "--ignore-not-found" # Ignore error if the Job doesn't exist
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
@@ -68,4 +79,4 @@ steps:
   #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
 images:
-  - "gcr.io/headless-site/wordpress:v1.0.1"
+  - "gcr.io/headless-site/wordpress:latest"
