@@ -57,6 +57,20 @@ steps:
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+  # Antes de aplicar o deployment
+  - name: "gcr.io/cloud-builders/gsutil"
+    args:
+      [
+        "cp",
+        "kubernetes/wordpress-deployment.yaml",
+        "kubernetes/wordpress-deployment-tmp.yaml",
+      ]
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        sed "s|CURRENT_TIMESTAMP|$(date +%s)|g" kubernetes/wordpress-deployment-tmp.yaml > kubernetes/wordpress-deployment-timestamp.yaml
 
   # SERVICE
   - name: "gcr.io/cloud-builders/kubectl"

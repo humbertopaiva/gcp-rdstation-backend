@@ -33,6 +33,8 @@ spec:
                 secretKeyRef:
                   name: sql-credentials
                   key: password
+            - name: ROLLING_UPDATE_TIMESTAMP
+              value: CURRENT_TIMESTAMP
           volumeMounts:
             - name: wordpress-storage
               mountPath: /var/www/html
