@@ -9,13 +9,13 @@ steps:
       - "build"
       - "--no-cache"
       - "-t"
-      - "gcr.io/headless-site/wordpress:teste"
+      - "gcr.io/headless-site/wordpress:latest"
       - "."
 
   - name: "gcr.io/cloud-builders/docker"
     args:
       - "push"
-      - "gcr.io/headless-site/wordpress:teste"
+      - "gcr.io/headless-site/wordpress:latest"
 
   # PVC
   - name: "gcr.io/cloud-builders/kubectl"
@@ -68,4 +68,4 @@ steps:
   #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
 images:
-  - "gcr.io/headless-site/wordpress:teste"
+  - "gcr.io/headless-site/wordpress:latest"
