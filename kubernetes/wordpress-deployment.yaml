@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: wordpress
-          image: gcr.io/headless-site/wordpress:latest
+          image: gcr.io/headless-site/wordpress:teste
           ports:
             - containerPort: 80
           env:
