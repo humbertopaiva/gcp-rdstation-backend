@@ -1,10 +1,10 @@
 steps:
   # Construir a imagem Docker
   - name: "gcr.io/cloud-builders/docker"
-    args: ["build", "-t", "gcr.io/headless-site/wordpress:$SHORT_SHA", "."]
+    args: ["build", "-t", "gcr.io/headless-site/wordpress:latest", "."]
   # Enviar a imagem para o Container Registry
   - name: "gcr.io/cloud-builders/docker"
-    args: ["push", "gcr.io/headless-site/wordpress:$SHORT_SHA"]
+    args: ["push", "gcr.io/headless-site/wordpress:latest"]
   # Aplicar os manifestos Kubernetes na pasta "kubernetes"
   - name: "gcr.io/cloud-builders/kubectl"
     args: ["apply", "-f", "kubernetes/"]
@@ -17,7 +17,7 @@ steps:
       - "set"
       - "image"
       - "deployment/wordpress"
-      - "wordpress=gcr.io/headless-site/wordpress:$SHORT_SHA"
+      - "wordpress=gcr.io/headless-site/wordpress:latest"
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
