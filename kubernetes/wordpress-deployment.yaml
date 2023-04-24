@@ -38,22 +38,21 @@ spec:
               mountPath: /var/www/html/wp-content/themes
             - name: wordpress-uploads
               mountPath: /var/www/html/wp-content/uploads
-
-            - name: cloudsql-proxy
-              image: gcr.io/cloudsql-docker/gce-proxy:latest
-              command:
-                [
-                  "/cloud_sql_proxy",
-                  "-instances=headless-site:us-central1:sql-instance=tcp:3306",
-                  "-credential_file=/secrets/cloudsql/key.json",
-                ]
-              securityContext:
-                runAsUser: 2 # non-root user
-                allowPrivilegeEscalation: false
-              volumeMounts:
-                - name: cloudsql-instance-credentials
-                  mountPath: /secrets/cloudsql
-                  readOnly: true
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:latest
+          command:
+            [
+              "/cloud_sql_proxy",
+              "-instances=headless-site:us-central1:sql-instance=tcp:3306",
+              "-credential_file=/secrets/cloudsql/key.json",
+            ]
+          securityContext:
+            runAsUser: 2 # non-root user
+            allowPrivilegeEscalation: false
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
       volumes:
         - name: wordpress-themes
           persistentVolumeClaim:
