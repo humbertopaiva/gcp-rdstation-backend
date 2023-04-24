@@ -34,10 +34,9 @@ spec:
                   name: sql-credentials
                   key: password
           volumeMounts:
-            - name: wordpress-themes
-              mountPath: /var/www/html/wp-content/themes
-            - name: wordpress-uploads
-              mountPath: /var/www/html/wp-content/uploads
+            - name: wordpress-storage
+              mountPath: /var/www/html
+
         - name: cloudsql-proxy
           image: gcr.io/cloudsql-docker/gce-proxy:latest
           command:
@@ -54,12 +53,9 @@ spec:
               mountPath: /secrets/cloudsql
               readOnly: true
       volumes:
-        - name: wordpress-themes
+        - name: wordpress-storage
           persistentVolumeClaim:
-            claimName: wordpress-themes-pvc
-        - name: wordpress-uploads
-          persistentVolumeClaim:
-            claimName: wordpress-uploads-pvc
+            claimName: wordpress-pvc
         - name: cloudsql-instance-credentials
           secret:
             secretName: google-credentials
