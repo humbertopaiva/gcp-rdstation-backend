@@ -1,7 +1,8 @@
 steps:
   - name: "gcr.io/cloud-builders/git"
     args:
-      ["clone", "https://github.com/humbertopaiva/gcp-rdstation-backend.git"]
+      - "clone"
+      - "https://github.com/humbertopaiva/gcp-rdstation-backend.git"
 
   - name: "gcr.io/cloud-builders/docker"
     args:
@@ -25,12 +26,21 @@ steps:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
+  # - name: "gcr.io/cloud-builders/kubectl"
+  #   args:
+  #     - "set"
+  #     - "image"
+  #     - "deployment/wordpress"
+  #     - "wordpress=gcr.io/headless-site/wordpress:latest"
+  #   env:
+  #     - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+  #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "set"
-      - "image"
+      - "rollout"
+      - "status"
       - "deployment/wordpress"
-      - "wordpress=gcr.io/headless-site/wordpress:latest"
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
