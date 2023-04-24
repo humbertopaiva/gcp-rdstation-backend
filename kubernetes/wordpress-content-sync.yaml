@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: wordpress-content-sync
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: wordpress-content-sync
+          image: gcr.io/headless-site/wordpress:latest
+          command:
+            - sh
+            - -c
+            - "cp -r /var/www/html/* /wordpress-storage"
+          volumeMounts:
+            - name: wordpress-storage
+              mountPath: /wordpress-storage
+      volumes:
+        - name: wordpress-storage
+          persistentVolumeClaim:
+            claimName: wordpress-pvc
