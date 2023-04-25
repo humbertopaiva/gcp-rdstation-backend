@@ -1,3 +1,5 @@
+db/
+
 # Ignore uploads folder inside WordPress folder
 /wordpress/wp-content/uploads/
 
@@ -28,5 +30,5 @@
 
 ./secrets/*
 
-/db/*
+
 
