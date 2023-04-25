@@ -4,7 +4,7 @@ metadata:
   name: ingress-nginx-controller
   namespace: default
 spec:
-  ingressClassName: my-release-nginx-ingress-controller
+  ingressClassName: nginx
   rules:
     - http:
         paths:
