@@ -83,15 +83,15 @@ steps:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
-  # # Check rollout status
-  # - name: "gcr.io/cloud-builders/kubectl"
-  #   args:
-  #     - "rollout"
-  #     - "status"
-  #     - "deployment/wordpress"
-  #   env:
-  #     - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
-  #     - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+    # SERVICE
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/wordpress-ingress.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
 images:
   - "gcr.io/headless-site/wordpress:latest"
