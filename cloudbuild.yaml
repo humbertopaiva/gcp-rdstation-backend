@@ -48,6 +48,16 @@ steps:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
       - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
 
+    # JOB
+  - name: "gcr.io/cloud-builders/kubectl"
+    args:
+      - "apply"
+      - "-f"
+      - "kubernetes/wordpress-service-lb.yaml"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-c"
+      - "CLOUDSDK_CONTAINER_CLUSTER=cluster-rdstation-teste"
+
   # Antes de aplicar o deployment
   - name: "gcr.io/cloud-builders/gsutil"
     args:
